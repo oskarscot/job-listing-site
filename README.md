@@ -7,6 +7,7 @@ This is a simple job listing website featuring a web api and a frontend which I 
 - [ ] Profile system
 - [ ] Job listing page
 - [ ] Company panel (publishing offers, reviewing applicants)
+- [ ] Security
 
 # Web API
 The web API is a simple REST API which is used to communicate with the frontend.

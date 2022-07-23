@@ -1,7 +1,9 @@
 package me.oskarscot.joblistingsite.listing;
 
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,31 +16,42 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/listing")
 public class JobListingController {
 
-  private final JobListingService jobListingService;
+  private final JobListingRepository repository;
 
   @Autowired
-  public JobListingController(JobListingService jobListingService) {
-    this.jobListingService = jobListingService;
+  public JobListingController(JobListingRepository repository) {
+    this.repository = repository;
   }
 
-  @GetMapping
-  public List<JobListing> getAll() {
-    return jobListingService.getAll();
+  @GetMapping(produces = "application/json")
+  public ResponseEntity<List<JobListing>> getAll() {
+    final List<JobListing> allListings = repository.findAll();
+    if(allListings.isEmpty()) {
+      return ResponseEntity.noContent().build();
+    }
+    return ResponseEntity.ok(
+        allListings
+    );
   }
 
-  @GetMapping("{id}")
-  public JobListing getById(@PathVariable("id") String id) {
-    return jobListingService.getById(id);
+  @GetMapping(path = "{id}", produces = "application/json")
+  public ResponseEntity<JobListing> getById(@PathVariable("id") String id) {
+    return ResponseEntity.of(repository.findById(id));
   }
 
   @PostMapping
   public void addNewListing(@RequestBody JobListing listing){
-    jobListingService.addNewListing(listing);
+    repository.save(listing);
   }
 
   @DeleteMapping(path = "{listingId}")
-  public void deleteListing(@PathVariable("listingId") String id){
-    jobListingService.deleteListing(id);
+  public ResponseEntity<JobListing> deleteListing(@PathVariable("listingId") String id){
+    final Optional<JobListing> listingOptional = repository.findById(id);
+    if(listingOptional.isEmpty()){
+      return ResponseEntity.notFound().build();
+    }
+    repository.deleteById(id);
+    return ResponseEntity.accepted().build();
   }
 
 }

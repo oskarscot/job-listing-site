@@ -65,7 +65,7 @@ Delete a job listing:
 http://localhost:8080/api/v1/listing/62dc2b65ea85f94e8fc33860
 ```
 
-Response is just 200 OK if successful or error otherwise.
+Response is just 202 Accepted if successful or error otherwise.
 
 Adding a job listing:
 ```

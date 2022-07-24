@@ -1,10 +1,10 @@
-package me.oskarscot.joblistingsite.listing;
+package me.oskarscot.joblistingsite.model;
 
 import java.time.Instant;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "job_listing")
+@Document(collection = "listings")
 public class JobListing {
 
   @Id
@@ -17,14 +17,7 @@ public class JobListing {
   private String employer;
   private Instant posted;
 
-  public JobListing(String id,
-                    String name,
-                    String description,
-                    double salary,
-                    String jobType,
-                    String location,
-                    String employer,
-                    Instant posted) {
+  public JobListing(String id, String name, String description, double salary, String jobType, String location, String employer, Instant posted) {
     this.id = id;
     this.name = name;
     this.description = description;
@@ -35,13 +28,7 @@ public class JobListing {
     this.posted = posted;
   }
 
-  public JobListing(String name,
-                    String description,
-                    double salary,
-                    String jobType,
-                    String location,
-                    String employer,
-                    Instant posted) {
+  public JobListing(String name, String description, double salary, String jobType, String location, String employer, Instant posted) {
     this.name = name;
     this.description = description;
     this.salary = salary;

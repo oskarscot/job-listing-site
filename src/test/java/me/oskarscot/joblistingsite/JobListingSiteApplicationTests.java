@@ -4,9 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
-import me.oskarscot.joblistingsite.listing.JobListing;
-import me.oskarscot.joblistingsite.listing.JobListingRepository;
+import me.oskarscot.joblistingsite.model.JobListing;
+import me.oskarscot.joblistingsite.repository.JobListingRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +17,12 @@ class JobListingSiteApplicationTests {
   @Autowired
   private JobListingRepository repository;
 
-  private JobListing stockholm, glasgow;
-
   @BeforeEach
   void setup() {
 
     repository.deleteAll();
 
-    stockholm = repository.save(new JobListing(
+    repository.save(new JobListing(
         "Java Developer",
         "Description of Java Developer",
         10.0,
@@ -34,7 +31,7 @@ class JobListingSiteApplicationTests {
         "Google",
         Instant.now())
     );
-    glasgow = repository.save(new JobListing(
+    repository.save(new JobListing(
         "Java Developer",
         "Description of Java Developer",
         10.0,
@@ -44,7 +41,6 @@ class JobListingSiteApplicationTests {
         Instant.now())
     );
 
-    System.out.println("Time: " + glasgow.getPosted().toString());
   }
 
   @Test

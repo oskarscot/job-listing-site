@@ -1,7 +1,9 @@
-package me.oskarscot.joblistingsite.listing;
+package me.oskarscot.joblistingsite.controller;
 
 import java.util.List;
 import java.util.Optional;
+import me.oskarscot.joblistingsite.model.JobListing;
+import me.oskarscot.joblistingsite.repository.JobListingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +27,7 @@ public class JobListingController {
 
   @GetMapping(produces = "application/json")
   public ResponseEntity<List<JobListing>> getAll() {
-    final List<JobListing> allListings = repository.findAll();
+    final List<JobListing> allListings = this.repository.findAll();
     if(allListings.isEmpty()) {
       return ResponseEntity.noContent().build();
     }
@@ -36,21 +38,21 @@ public class JobListingController {
 
   @GetMapping(path = "{id}", produces = "application/json")
   public ResponseEntity<JobListing> getById(@PathVariable("id") String id) {
-    return ResponseEntity.of(repository.findById(id));
+    return ResponseEntity.of(this.repository.findById(id));
   }
 
   @PostMapping
-  public void addNewListing(@RequestBody JobListing listing){
-    repository.save(listing);
+  public void addNewListing(@RequestBody JobListing listing) {
+    this.repository.save(listing);
   }
 
   @DeleteMapping(path = "{listingId}")
-  public ResponseEntity<JobListing> deleteListing(@PathVariable("listingId") String id){
+  public ResponseEntity<JobListing> deleteListing(@PathVariable("listingId") String id) {
     final Optional<JobListing> listingOptional = repository.findById(id);
     if(listingOptional.isEmpty()){
       return ResponseEntity.notFound().build();
     }
-    repository.deleteById(id);
+    this.repository.deleteById(id);
     return ResponseEntity.accepted().build();
   }
 

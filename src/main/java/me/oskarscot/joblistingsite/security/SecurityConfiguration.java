@@ -17,7 +17,7 @@ public class SecurityConfiguration {
 
   @Bean
   public WebSecurityCustomizer webSecurityCustomizer(){
-    return web -> web.ignoring().antMatchers("/api/v1/user/register", "/api/v1/listing"); //temporary config
+    return web -> web.ignoring().anyRequest(); //temporary config
   }
 
 }

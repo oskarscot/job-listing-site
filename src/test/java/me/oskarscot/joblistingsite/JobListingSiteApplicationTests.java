@@ -14,6 +14,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class JobListingSiteApplicationTests {
 
+  /*
+    TODO: Move tests into test containers and separate them into different classes.
+   */
+
   @Autowired
   private JobListingRepository repository;
 

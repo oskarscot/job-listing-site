@@ -3,6 +3,7 @@ package me.oskarscot.joblistingsite.controller;
 import me.oskarscot.joblistingsite.model.RegistrationData;
 import me.oskarscot.joblistingsite.model.User;
 import me.oskarscot.joblistingsite.repository.UserRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,9 +31,7 @@ public class UserController {
       return ResponseEntity.badRequest().build();
     }
     final User user = new User();
-    user.setName(data.getName());
-    user.setSurname(data.getSurname());
-    user.setEmail(data.getEmail());
+    BeanUtils.copyProperties(data, user);
     user.setPassword(passwordEncoder.encode(data.getPassword()));
     this.userRepository.save(user);
     return ResponseEntity.accepted().body(user);

@@ -42,6 +42,8 @@ Response:
 ]
 ```
 
+If no listings are found, the response will be 204 no content.
+
 Get a specific job listing:
 ```
 http://localhost:8080/api/v1/listing/62dc2b65ea85f94e8fc33860
@@ -66,7 +68,7 @@ Delete a job listing:
 http://localhost:8080/api/v1/listing/62dc2b65ea85f94e8fc33860
 ```
 
-Response is just 202 Accepted if successful or error otherwise.
+Response is just 202 Accepted if successful or 404 not found otherwise.
 
 Adding a job listing:
 ```

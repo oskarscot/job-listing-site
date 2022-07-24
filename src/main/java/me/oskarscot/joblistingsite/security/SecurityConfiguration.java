@@ -12,12 +12,12 @@ public class SecurityConfiguration {
 
   @Bean
   public PasswordEncoder getPasswordEncoder() {
-    return new BCryptPasswordEncoder(16);
+    return new BCryptPasswordEncoder(6);
   }
 
   @Bean
   public WebSecurityCustomizer webSecurityCustomizer(){
-    return web -> web.ignoring().antMatchers("/api/v1/user/register", "/api/v1/listing");
+    return web -> web.ignoring().antMatchers("/api/v1/user/register", "/api/v1/listing"); //temporary config
   }
 
 }

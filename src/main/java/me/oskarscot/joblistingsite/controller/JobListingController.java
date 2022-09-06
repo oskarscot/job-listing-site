@@ -31,9 +31,7 @@ public class JobListingController {
     if(allListings.isEmpty()) {
       return ResponseEntity.noContent().build();
     }
-    return ResponseEntity.ok(
-        allListings
-    );
+    return ResponseEntity.ok(allListings);
   }
 
   @GetMapping(path = "{id}", produces = "application/json")
